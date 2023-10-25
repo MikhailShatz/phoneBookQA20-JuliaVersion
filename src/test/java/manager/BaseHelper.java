@@ -53,7 +53,7 @@ public class BaseHelper {
     }
 
     public boolean isTextContainsGet2Strings(String expectedResult, String actualResult) {
-        if(actualResult.equals(expectedResult)) {
+        if(actualResult.contains(expectedResult)) {
             return true;
         } else {
             System.out.println("expected result: " + expectedResult +
@@ -68,8 +68,25 @@ public class BaseHelper {
         return alert.getText().toUpperCase().trim();
     }
 
+    public void clickAcceptAlert() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+
+//        Alert alert = driver.switchTo().alert();
+//        // Alert present; set the flag
+//        presentFlag = true;
+//        // if present consume the alert
+//        alert.accept();
+    }
+
     public void jsClickBase(String locator) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript(locator);
+    }
+
+    public void refresh() {
+        driver.navigate().refresh();
     }
 }

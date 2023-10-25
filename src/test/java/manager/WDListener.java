@@ -1,6 +1,5 @@
 package manager;
 
-import com.google.common.io.Files;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,18 +12,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.google.common.io.Files;
+
 public class WDListener extends AbstractWebDriverEventListener {
+
     Logger logger = LoggerFactory.getLogger(WDListener.class);
+
     public WDListener() {
         super();
     }
+
     @Override
     public void beforeAlertAccept(WebDriver driver) {
         super.beforeAlertAccept(driver);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-        logger.info("before alert accept: the url is: " + driver.getCurrentUrl() +
-                "alert title: "  +alert.getText());
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+//        logger.info("before alert accept: the url is: " + driver.getCurrentUrl() +
+//                "alert title: " + alert.getText());
     }
 
     @Override
@@ -120,7 +124,7 @@ public class WDListener extends AbstractWebDriverEventListener {
     @Override
     public void beforeScript(String script, WebDriver driver) {
         super.beforeScript(script, driver);
-        logger.info(" start execute js script"+ script);
+        logger.info("start execute js script: " + script);
     }
 
     @Override
@@ -131,7 +135,7 @@ public class WDListener extends AbstractWebDriverEventListener {
 
     @Override
     public void afterSwitchToWindow(String windowName, WebDriver driver) {
-        super.afterSwitchToWindow(windowName, driver); //handlers
+        super.afterSwitchToWindow(windowName, driver); // handlers
     }
 
     @Override
@@ -148,16 +152,15 @@ public class WDListener extends AbstractWebDriverEventListener {
         logger.error(throwable.getMessage());
         logger.error(Arrays.toString(throwable.getStackTrace()));
         logger.error(throwable.toString());
-        takeScreenshot((TakesScreenshot)driver, fileName);
-
+        takeScreenShot((TakesScreenshot) driver, fileName);
     }
 
-    private void takeScreenshot(TakesScreenshot takesScreenshot, String fileName){
+    private void takeScreenShot(TakesScreenshot takesScreenshot, String fileName) {
         try {
             File tmp = takesScreenshot.getScreenshotAs(OutputType.FILE);
             File screenshot = new File(fileName);
             Files.copy(tmp, screenshot);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             logger.error("got an exception for adding screenshot to the folder: " + e.getMessage());
         }
@@ -166,26 +169,22 @@ public class WDListener extends AbstractWebDriverEventListener {
     @Override
     public <X> void beforeGetScreenshotAs(OutputType<X> target) {
         super.beforeGetScreenshotAs(target);
-        logger.info("");
     }
 
     @Override
     public <X> void afterGetScreenshotAs(OutputType<X> target, X screenshot) {
         super.afterGetScreenshotAs(target, screenshot);
-        logger.info("");
     }
 
     @Override
     public void beforeGetText(WebElement element, WebDriver driver) {
         super.beforeGetText(element, driver);
-        logger.info("get text from element with text: " + element.getText());
+        logger.info("get text from the element with text: " + element.getText());
     }
 
     @Override
     public void afterGetText(WebElement element, WebDriver driver, String text) {
         super.afterGetText(element, driver, text);
-        logger.info("got the text successfully");
+        logger.info("got the text successful");
     }
-
-
 }
