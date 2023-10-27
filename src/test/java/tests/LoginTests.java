@@ -1,5 +1,6 @@
 package tests;
 
+import data.DataProviderLogin;
 import dto.UserDTO;
 import dto.UserDTOWith;
 import dto.UserDtoLombok;
@@ -45,24 +46,24 @@ public class LoginTests extends BaseTests {
         Assert.assertTrue(app.getUserHelper().validateContactTextDisplaysMainMenu());
     }
 
-    @Test(groups={"regression"})
-    public void positiveLoginUserDtoLombok() {
-        UserDtoLombok user = UserDtoLombok.builder()
-                .email("testqa20@gmail.com")
-                .password("123456Aa$")
-                .build();
-        app.getUserHelper().fillLoginUserDtoLombok(user);
+    @Test(groups={"regression"}, dataProvider = "positiveDataLogin", dataProviderClass = DataProviderLogin.class)
+    public void positiveLoginUserDtoLombok(UserDtoLombok userDP) {
+//        UserDtoLombok user = UserDtoLombok.builder()
+//                .email("testqa20@gmail.com")
+//                .password("123456Aa$")
+//                .build();
+        app.getUserHelper().fillLoginUserDtoLombok(userDP);
         flagIsUserLogin = true;
         Assert.assertTrue(app.getUserHelper().validateContactTextDisplaysMainMenu());
     }
 
-    @Test (groups = {"smoke"})
-    public void negativeWrongPasswordWrongSymbol() {
-        UserDtoLombok user = UserDtoLombok.builder()
-                .email("testqa20@gmail.com")
-                .password("123456Aa5")
-                .build();
-        app.getUserHelper().fillLoginUserDtoLombok(user);
+    @Test (groups = {"smoke"}, dataProvider = "negativePasswordLoginDataLogin", dataProviderClass = DataProviderLogin.class )
+    public void negativeWrongPasswordWrongSymbol(UserDtoLombok userDP) {
+//        UserDtoLombok user = UserDtoLombok.builder()
+//                .email("testqa20@gmail.com")
+//                .password("123456Aa5")
+//                .build();
+        app.getUserHelper().fillLoginUserDtoLombok(userDP);
         flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailPasswordCorrect()); // Wrong email or password
     }
