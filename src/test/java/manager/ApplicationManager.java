@@ -17,6 +17,7 @@ public class ApplicationManager {
     static String browser;
     EventFiringWebDriver driver;
     UserHelper userHelper;
+    ContactHelper contactHelper;
     public ApplicationManager() {
         browser = System.getProperty("browser", BrowserType.CHROME);
     }
@@ -38,11 +39,14 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.register(new WDListener());
         userHelper = new UserHelper(driver);
+        contactHelper = new ContactHelper(driver);
     }
 
     public UserHelper getUserHelper() {
         return userHelper;
     }
+
+    public ContactHelper getContactHelper(){return contactHelper;}
 
     public void tearDown() {
         driver.quit();

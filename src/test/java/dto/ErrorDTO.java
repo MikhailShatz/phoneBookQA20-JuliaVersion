@@ -9,7 +9,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class UserDtoLombok {
-    String username;
-    String password;
+public class ErrorDTO {
+    String timestamp;
+    int status;
+    String error;
+    String message;
+    String path;
+
 }

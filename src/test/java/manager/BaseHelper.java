@@ -89,4 +89,21 @@ public class BaseHelper {
     public void refresh() {
         driver.navigate().refresh();
     }
+
+    public boolean isElementByTextExistInTheList(By locator,String text){
+        boolean flag = false;
+        List<WebElement> list = findElementsBase(locator);
+        int size =list.size();
+        if(size==0){
+            return false;
+        }
+        for (WebElement element : list) {
+            if (element.getText().equals(text)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
 }
