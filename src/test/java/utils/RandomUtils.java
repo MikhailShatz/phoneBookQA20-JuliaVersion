@@ -23,7 +23,7 @@ public class RandomUtils {
         }
         return new String(randomString); // aksdhjTG78
     }
-    public String generateStringDigits(int length) {
+    public  String generateStringDigits(int length) {
         String characters = "123456789";
         char[] randomString = new char[length];
         int index = 0;
