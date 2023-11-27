@@ -36,7 +36,7 @@ public class UserApi extends BaseAPI{
         if(responseReg==null) {
             responseReg = regRequest(userReg);
         }
-        return responseReg.getBody().as(AuthResponseDTO.class).getToken();
+        return responseReg.then().extract().path("token");
     }
     private Response loginRequest(UserDtoLombok userLogin){
         System.out.println("-----------------------------------loginRequest method run");
